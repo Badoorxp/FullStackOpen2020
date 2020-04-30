@@ -11,29 +11,29 @@ return(
 }
 
 const Stats=({text,count})=>{
-  return(<div>{text} {count}</div>)}
+  return(<tr><td>{text}</td> <td>{count}</td></tr>)}
 
 const Average=({text,count})=>{
   const calculate=(count)=>count===0?0:(3/count);
   return(
-  <div>{text} {calculate(count)}</div>
+  <tr><td>{text}</td> <td>{calculate(count)}</td></tr>
   )
 }
 
-const Percentage=({text,count,total})=><div>{text} {(count/total)*100}%</div>
+const Percentage=({text,count,total})=><tr><td>{text}</td> <td>{(count/total)*100}%</td></tr>
 
 const Display=({total,good,bad,neutral})=>{
   if(total>0)
   {
     return(
-      <>
+    <table>
     <Stats text='Good' count={good}/>
     <Stats text='Neutral' count={neutral}/>
     <Stats text='Bad' count={bad}/>
     <Stats  text='All' count={total}/>
     <Average  text='Average' count={(good-bad)}/>
     <Percentage text='Positive' count={good} total={total}/>
-    </>
+    </table>
     )
   }
   return(
