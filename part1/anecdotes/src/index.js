@@ -18,7 +18,7 @@ const App = (props) => {
       <br/>
       <VoteButton click={voter}/>
       <Next click={randomizer} current={selected}/>
-      <Header text="Anecdote of the day"/>
+      <Header text="Anecdote with most votes"/>
       <Top votes={votes} anec={anecdotes}/>
     </div>
   )
