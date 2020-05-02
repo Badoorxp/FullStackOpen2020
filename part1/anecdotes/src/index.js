@@ -18,7 +18,8 @@ const App = (props) => {
       <br/>
       <VoteButton click={voter}/>
       <Next click={randomizer} current={selected}/>
-
+      <Header text="Anecdote of the day"/>
+      <Top votes={votes} anec={anecdotes}/>
     </div>
   )
 }
@@ -37,7 +38,25 @@ const Header = ({text})=>{
   )
 }
 
-
+const Top = ({votes,anec}) =>{
+  let sum=0
+  votes.forEach(element => {sum+=element})
+  if(sum===0){return(<div>No Votes Currently</div>)}
+  let counter=0
+  let highest=0
+  while(counter<votes.length)
+  {
+    if(votes[highest]<votes[counter])
+    {
+      highest=counter;
+    }
+    counter+=1
+  }
+  return(
+  <div>{anec[highest]}
+  </div>
+  )
+}
 
 const Next = ({click,current}) =>{
   console.log("",current)
