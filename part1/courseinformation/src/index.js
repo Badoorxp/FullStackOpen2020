@@ -36,6 +36,7 @@ const Course = ({course}) => {
       <>
       <Header course={course.name}/>
       <Content parts={course.parts}/>
+      <Total parts={course.parts}/>
     </>
   )
 }
@@ -43,10 +44,13 @@ const Header = ({course}) =><h1>{course}</h1>
 
 const Content = ({parts}) =>parts.map(part=> <p key={part.id}>{part.name} {part.exercises}</p>)
 
+const Total = ({parts})=>{
+  let sum=0
+  for(let i=0;i<parts.length;i++)
+  {
+    sum+=parts[i].exercises
+  }
+  return(<p>Total of {sum} exercises.</p>)
+}
 
 ReactDOM.render(<App />, document.getElementById('root'))
-
-
-// const Total = ({parts}) => {
-//   return <p>Number of exercises {parts[0].exercises+parts[1].exercises+parts[2].exercises}</p>
-// }
