@@ -1,55 +1,52 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Header = ({course}) => {
-  return <h1>{course}</h1>
-}
-
-const Content = ({parts}) => {
-const {name,exercises}=parts
-  return (
-      <>
-      <Part pt={parts[0].name} ex={parts[0].exercises}/>
-      <Part pt={parts[1].name} ex={parts[1].exercises}/>
-      <Part pt={parts[2].name} ex={parts[2].exercises}/>
-    </>
-  )
-}
-
-const Part = ({pt,ex}) =>{
-  return <p>{pt} {ex}</p>
-}
-
-const Total = ({parts}) => {
-  return <p>Number of exercises {parts[0].exercises+parts[1].exercises+parts[2].exercises}</p>
-}
-
 const App = () => {
   const course = {
+    id: 1,
     name: 'Half Stack application development',
     parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 10
+        exercises: 10,
+        id: 1
       },
       {
         name: 'Using props to pass data',
-        exercises: 7
+        exercises: 7,
+        id: 2
       },
       {
         name: 'State of a component',
-        exercises: 14
+        exercises: 14,
+        id: 3
       }
     ]
   }
+
   return (
     <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts} />
-      
+      <Course course={course} />
     </div>
   )
 }
 
+const Course = ({course}) => {
+  return (
+      <>
+      <Header course={course.name}/>
+      <Content parts={course.parts}/>
+    </>
+  )
+}
+const Header = ({course}) =><h1>{course}</h1>
+
+const Content = ({parts}) =>parts.map(part=> <p key={part.id}>{part.name} {part.exercises}</p>)
+
+
 ReactDOM.render(<App />, document.getElementById('root'))
+
+
+// const Total = ({parts}) => {
+//   return <p>Number of exercises {parts[0].exercises+parts[1].exercises+parts[2].exercises}</p>
+// }
