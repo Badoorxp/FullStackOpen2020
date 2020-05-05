@@ -51,33 +51,29 @@ const App = () => {
 
   return (
     <div>
-      <Course courses={courses} />
+      {courses.map(course=>
+      <Course key={course.id} course={course} />)}
     </div>
   )
 }
 
-const Course = ({courses}) => {
+const Course = ({course}) => {
   return (
       <div>
-      <Header course={courses}/>
-      <Content course={courses}/>
-      {/* <Total parts={courses}/> */}
+      <Header course={course}/>
+      <Content course={course.parts}/>
+      <Total parts={course.parts}/>
     </div>
   )
 }
 const Header = ({course}) =>{
-  return (
-    course.map((heading) =><h1 key={heading.id}>{heading.name}</h1>))
+  return (<h1 key={course.id}>{course.name}</h1>)
 }
 
 const Content = ({course})=>{
   return(
-    course.map(courses=>courses.parts.map(part=><p key={part.id}>{part.name} {part.exercises}</p>))
-)}
-  // let heading=course.map(heading=><h1 key={heading.id}>{heading.name}</h1>)
-  // let contents=course.map(heading=>heading.parts.map(part=><p key={part.id}>{part.name} {part.exercises}</p>))
-  
-
-// const Total = ({parts})=><p>Total of {parts.reduce((sum,part)=>sum+part.exercises,0)} exercises.</p>
+    course.map(part=><p key={part.id}>{part.name} {part.exercises}</p>))
+}
+const Total = ({parts})=><p>Total of {parts.reduce((sum,part)=>sum+part.exercises,0)} exercises.</p>
 
 ReactDOM.render(<App />, document.getElementById('root'))
