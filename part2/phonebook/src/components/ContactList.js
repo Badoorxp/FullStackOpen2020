@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import Headings from './Headings'
+import List from './List'
 
-const ContactList = ({p}) => p.map(person=>
-        <li key={person.name}>{person.name} {person.number}</li>)
-
+    const ContactList=({list})=>{
+        return(
+            <Fragment>
+                <Headings text="Contacts"/>
+                <List data={list}/>
+            </Fragment>
+        )
+    }
 export default ContactList

@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import ContactList from './components/ContactList'
+import NameAdder from './components/NameAdder'
+import Search from './components/Search'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -12,13 +15,18 @@ const App = () => {
       number: '39-23-6423122' }
   ]) 
   const [ newName, setNewName ] = useState('')
-  const [ newSearch, setnewSearch ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  
+  const [ newSearch, setnewSearch ] = useState('')
   const [result,setResult]=useState([{
     name: '',
     number: ''
   }])
-  
+
+  const newNameHandle = (event)=>setNewName(event.target.value)
+
+  const newNumberHandle = (event)=>setNewNumber(event.target.value)
+
   const nameAdder=(event)=>{
       event.preventDefault()
       if(newName.length>0)
@@ -53,12 +61,7 @@ const App = () => {
 
   const search=(event)=>{
     setnewSearch(event.target.value)
-    //setResult(persons.filter((person)=>person.name.includes(newSearch.toLowerCase)>-1?true:false))
     setResult(persons.filter(person=>person.name.includes(newSearch)))  
-    if(event.target.value.length===0)
-    {
-      //searchClear()
-    }
   }
 
   const searchClear=()=>{
@@ -69,39 +72,24 @@ const App = () => {
   return (
     <div className="App-header">
       <h2>Phonebook</h2>
-      <div>
-        <h3>Search</h3>
-        name: 
-          <input 
-                value={newSearch}
-                onChange={search}/>
-          {result.map(person=>
-        <li key={person.name}>{person.name} {person.number}</li>
-      )}
-          <button onClick={searchClear} >Clear Search</button>
-      </div>
-      <h3>Add New Contact</h3>
-      <form onSubmit={nameAdder}>
-        <div>
-          name: 
-          <input 
-                value={newName}
-                onChange={(event)=>setNewName(event.target.value)}/>
-          <br/>
-                number: 
-          <input 
-                value={newNumber}
-                onChange={(event)=>setNewNumber(event.target.value)}/>
-        </div>
-        <div>
-          <button type="submit" >add</button>
-        </div>
-      </form>
-      <h2>Contacts</h2>
-      {persons.map(person=>
-        <li key={person.name}>{person.name} {person.number}</li>
-      )}
-      <div>debug: Name- {newName} Number- {newNumber}</div>
+      
+      <Search 
+        name={newSearch}
+        HSearch={search}
+        list={result}
+        cleanup={searchClear}
+      />
+
+      <NameAdder 
+        submitController={nameAdder}
+        name={newName}
+        number={newNumber}
+        HName={newNameHandle}
+        HNumber={newNumberHandle}
+      />
+
+      <ContactList list={persons}/>
+      
     </div>
   )
 }

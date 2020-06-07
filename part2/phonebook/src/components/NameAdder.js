@@ -1,26 +1,20 @@
 import React, { Fragment } from 'react'
+import Headings from './Headings'
+import InputFields from './InputFields'
 
-const NameAdder = () =>{
-    return
-    (
+const NameAdder = ({submitController,name,HName,number,HNumber}) =>{
+    return(
         <Fragment>
-            <form>
-                <div>
-                name: 
-                <input 
-                        value={newName}
-                        onChange={(event)=>setNewName(event.target.value)}/>
+             <Headings text="Add New Contact"/>
+             <form onSubmit={submitController}>
+                <p>
+                <InputFields text="name:" data={name} handler={HName}/>
                 <br/>
-                        number: 
-                <input 
-                        value={newNumber}
-                        onChange={(event)=>setNewNumber(event.target.value)}/>
-                </div>
-                <div>
+                <InputFields text="number:" data={number} handler={HNumber}/>
                 <button type="submit" >add</button>
-                </div>
+                </p>
             </form>
       </Fragment>
     )
 }
-export default nameAdder
+export default NameAdder
